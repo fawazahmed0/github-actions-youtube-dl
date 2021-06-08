@@ -18,13 +18,6 @@ jobs:
          ./bin/youtube-dl --config-location config.txt
          zip -r my-artifact.zip downloads
 
-      - name: Bump version and push tag
-        id: tag_version
-        uses: miguelfito/github-bump-and-tag-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-
 
       - name: Create Release
         id: create_release
@@ -32,8 +25,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.tag_version.outputs.new_tag }}
-          release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+          release_name: Release
           draft: false
           prerelease: false
           
