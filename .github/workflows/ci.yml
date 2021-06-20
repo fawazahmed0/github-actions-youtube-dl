@@ -15,7 +15,7 @@ jobs:
         run: | 
          sudo apt-get update
          sudo apt-get -y install zip youtube-dl ffmpeg
-         youtube-dl --batch-file url.txt --output downloads/%(title)s_%(id)s.%(ext)s --continue
+         youtube-dl --config-location config.txt
          zip -r my-artifact.zip downloads
          
       - name: generate timestamp version
