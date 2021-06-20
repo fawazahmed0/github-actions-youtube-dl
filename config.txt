@@ -1,4 +1,4 @@
---batch-file playlist.txt
+--batch-file url.txt
 --output downloads/%(title)s_%(id)s.%(ext)s
 --continue
 # --write-description
