@@ -14,9 +14,14 @@ jobs:
       - name: download
         run: | 
          sudo apt-get update
-         sudo apt-get -y install zip
-         ./bin/youtube-dl --config-location config.txt
+         sudo apt-get -y install zip youtube-dl
+         youtube-dl url.txt
          zip -r my-artifact.zip downloads
+         
+      - name: generate timestamp version
+        id: version
+        shell: bash
+        run: echo "::set-output name=timestamp::$(date +%s)"
 
 
       - name: Create Release
@@ -25,8 +30,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v2.0
-          release_name: Release v2.0
+          tag_name: ${{ steps.version.outputs.timestamp }}
+          release_name: Release ${{ steps.version.outputs.timestamp }}
           draft: false
           prerelease: false
           
